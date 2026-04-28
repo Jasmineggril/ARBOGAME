@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import {
@@ -37,8 +38,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { HeroScene } from "@/components/3d/HeroScene";
 import { objectUrl } from "@/lib/api-base";
+
+const HeroScene = lazy(() => import("@/components/3d/HeroScene"));
 
 const KIND_GAME: Record<string, string> = {
   virtual: "Virtual",
@@ -124,12 +126,18 @@ export default function Home() {
   const { data: events = [] } = useListEvents();
   const { data: team = [] } = useListTeam();
 
-  const featuredGames = games.slice(0, 3);
-  const socialEvents = events.filter((e) => e.kind === "oficina" || e.kind === "acao_social").slice(0, 3);
-  const orientador = team.find((m) => m.program === "orientador");
-  const students = team.filter((m) => m.program !== "orientador").slice(0, 6);
+  // Ensure data is always arrays
+  const gamesArray = Array.isArray(games) ? games : [];
+  const eventsArray = Array.isArray(events) ? events : [];
+  const teamArray = Array.isArray(team) ? team : [];
+  const resultsArray = Array.isArray(results) ? results : [];
+
+  const featuredGames = gamesArray.slice(0, 3);
+  const socialEvents = eventsArray.filter((e) => e.kind === "oficina" || e.kind === "acao_social").slice(0, 3);
+  const orientador = teamArray.find((m) => m.program === "orientador");
+  const students = teamArray.filter((m) => m.program !== "orientador").slice(0, 6);
   const avgSatisfaction = stats?.avgSatisfaction ?? null;
-  const learningScores = results
+  const learningScores = resultsArray
     .map((r) => r.learningScore)
     .filter((s): s is number => typeof s === "number");
   const avgLearning =
@@ -184,7 +192,15 @@ export default function Home() {
             className="relative"
           >
             <div className="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-primary/15 via-secondary/10 to-transparent blur-2xl" />
-            <HeroScene />
+            <Suspense
+              fallback={
+                <div className="flex h-full min-h-[360px] items-center justify-center rounded-3xl border border-border/60 bg-card/70 text-sm text-muted-foreground backdrop-blur">
+                  Carregando demonstração interativa...
+                </div>
+              }
+            >
+              <HeroScene />
+            </Suspense>
           </motion.div>
         </div>
       </section>
@@ -374,7 +390,7 @@ export default function Home() {
             <Card className="border-card-border">
               <CardContent className="p-6">
                 <p className="text-xs uppercase tracking-widest text-muted-foreground">Estudos</p>
-                <p className="mt-2 text-4xl font-extrabold text-primary">{results.length}</p>
+                <p className="mt-2 text-4xl font-extrabold text-primary">{resultsArray.length}</p>
               </CardContent>
             </Card>
             <Card className="border-card-border">

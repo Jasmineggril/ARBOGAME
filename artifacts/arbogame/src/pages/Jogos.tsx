@@ -15,6 +15,7 @@ const KIND_LABELS: Record<string, string> = {
 
 export default function Jogos() {
   const { data: games = [], isLoading } = useListGames();
+  const gamesArray = Array.isArray(games) ? games : [];
 
   return (
     <div className="container mx-auto max-w-screen-2xl px-4 py-16 md:px-6 md:py-20">
@@ -30,7 +31,7 @@ export default function Jogos() {
             <Skeleton key={i} className="h-72 w-full rounded-xl" />
           ))}
         </div>
-      ) : games.length === 0 ? (
+      ) : gamesArray.length === 0 ? (
         <Card className="mt-12 border-dashed">
           <CardContent className="flex flex-col items-center gap-3 p-12 text-center">
             <Gamepad2 className="h-10 w-10 text-muted-foreground" />
@@ -40,7 +41,7 @@ export default function Jogos() {
         </Card>
       ) : (
         <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {games.map((game) => {
+          {gamesArray.map((game) => {
             const img = objectUrl(game.imageUrl);
             return (
               <Card key={game.id} className="flex flex-col overflow-hidden border-card-border hover-elevate">

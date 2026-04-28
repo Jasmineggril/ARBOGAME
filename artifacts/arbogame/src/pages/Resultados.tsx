@@ -19,16 +19,17 @@ import { Microscope } from "lucide-react";
 export default function Resultados() {
   const { data: results = [], isLoading } = useListResults();
   const { data: stats } = useGetStatsOverview();
+  const resultsArray = Array.isArray(results) ? results : [];
 
   const chartData = useMemo(
     () =>
-      results.map((r) => ({
+      resultsArray.map((r) => ({
         name: r.title.length > 22 ? r.title.slice(0, 22) + "…" : r.title,
         Participantes: r.participants,
         Satisfação: r.satisfactionScore ?? 0,
         Aprendizagem: r.learningScore ?? 0,
       })),
-    [results],
+    [resultsArray],
   );
 
   return (
@@ -49,7 +50,7 @@ export default function Resultados() {
         <Card className="border-card-border">
           <CardContent className="p-6">
             <p className="text-xs uppercase tracking-widest text-muted-foreground">Estudos realizados</p>
-            <p className="mt-2 text-3xl font-bold">{results.length}</p>
+            <p className="mt-2 text-3xl font-bold">{resultsArray.length}</p>
           </CardContent>
         </Card>
         <Card className="border-card-border">
@@ -99,7 +100,7 @@ export default function Resultados() {
               <Skeleton key={i} className="h-40 w-full rounded-xl" />
             ))}
           </div>
-        ) : results.length === 0 ? (
+        ) : resultsArray.length === 0 ? (
           <Card className="border-dashed">
             <CardContent className="flex flex-col items-center gap-3 p-12 text-center">
               <Microscope className="h-10 w-10 text-muted-foreground" />
@@ -107,7 +108,7 @@ export default function Resultados() {
             </CardContent>
           </Card>
         ) : (
-          results.map((r) => (
+          resultsArray.map((r) => (
             <Card key={r.id} className="border-card-border">
               <CardContent className="grid grid-cols-1 gap-6 p-6 md:grid-cols-3">
                 <div className="md:col-span-2">

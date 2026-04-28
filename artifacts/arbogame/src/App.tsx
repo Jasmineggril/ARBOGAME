@@ -1,22 +1,25 @@
+import { lazy, Suspense } from "react";
 import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Layout } from "@/components/layout/Layout";
-import NotFound from "@/pages/not-found";
-import Home from "@/pages/Home";
-import Sobre from "@/pages/Sobre";
-import Missao from "@/pages/Missao";
-import Jogos from "@/pages/Jogos";
-import Resultados from "@/pages/Resultados";
-import Metodologia from "@/pages/Metodologia";
-import Impacto from "@/pages/Impacto";
-import Equipe from "@/pages/Equipe";
-import Pibex from "@/pages/Pibex";
-import Pic from "@/pages/Pic";
-import Producao from "@/pages/Producao";
-import Futuro from "@/pages/Futuro";
-import Admin from "@/pages/admin/Admin";
+
+const Home = lazy(() => import("@/pages/Home"));
+const Sobre = lazy(() => import("@/pages/Sobre"));
+const Missao = lazy(() => import("@/pages/Missao"));
+const Jogos = lazy(() => import("@/pages/Jogos"));
+const Resultados = lazy(() => import("@/pages/Resultados"));
+const Metodologia = lazy(() => import("@/pages/Metodologia"));
+const Impacto = lazy(() => import("@/pages/Impacto"));
+const Equipe = lazy(() => import("@/pages/Equipe"));
+const Pibex = lazy(() => import("@/pages/Pibex"));
+const Pic = lazy(() => import("@/pages/Pic"));
+const Producao = lazy(() => import("@/pages/Producao"));
+const Futuro = lazy(() => import("@/pages/Futuro"));
+const Admin = lazy(() => import("@/pages/admin/Admin"));
+const Contato = lazy(() => import("@/pages/Contato"));
+const NotFound = lazy(() => import("@/pages/not-found"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,6 +45,7 @@ function Router() {
       <Route path="/pic" component={Pic} />
       <Route path="/producao" component={Producao} />
       <Route path="/futuro" component={Futuro} />
+      <Route path="/contato" component={Contato} />
       <Route path="/admin" component={Admin} />
       <Route component={NotFound} />
     </Switch>
@@ -54,7 +58,15 @@ function App() {
       <TooltipProvider>
         <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
           <Layout>
-            <Router />
+            <Suspense
+              fallback={
+                <div className="container mx-auto flex min-h-[40vh] items-center justify-center px-4 py-16 text-sm text-muted-foreground md:px-6">
+                  Carregando conteúdo...
+                </div>
+              }
+            >
+              <Router />
+            </Suspense>
           </Layout>
         </WouterRouter>
         <Toaster />

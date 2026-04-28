@@ -13,8 +13,12 @@ export default function Pic() {
   const { data: docs = [], isLoading: loadingDocs } = useListDocuments();
   const { data: team = [] } = useListTeam();
 
-  const picDocs = docs.filter((d) => d.program === "pic" || d.program === "geral");
-  const picTeam = team.filter((m) => m.program === "pic" || m.program === "ambos");
+  const resultsArray = Array.isArray(results) ? results : [];
+  const docsArray = Array.isArray(docs) ? docs : [];
+  const teamArray = Array.isArray(team) ? team : [];
+
+  const picDocs = docsArray.filter((d) => d.program === "pic" || d.program === "geral");
+  const picTeam = teamArray.filter((m) => m.program === "pic" || m.program === "ambos");
 
   return (
     <div className="container mx-auto max-w-screen-2xl px-4 py-16 md:px-6 md:py-20">
@@ -48,11 +52,11 @@ export default function Pic() {
       <h2 className="mt-12 text-2xl font-bold tracking-tight">Estudos científicos</h2>
       {loadingResults ? (
         <Skeleton className="mt-4 h-32 w-full rounded-xl" />
-      ) : results.length === 0 ? (
+      ) : resultsArray.length === 0 ? (
         <p className="mt-4 text-sm text-muted-foreground">Nenhum estudo cadastrado ainda.</p>
       ) : (
         <div className="mt-4 space-y-3">
-          {results.map((r) => (
+          {resultsArray.map((r) => (
             <Card key={r.id} className="border-card-border">
               <CardContent className="flex flex-col gap-2 p-5">
                 <p className="text-base font-bold">{r.title}</p>

@@ -15,8 +15,9 @@ const KIND_LABELS: Record<string, string> = {
 
 export default function Impacto() {
   const { data: events = [], isLoading } = useListEvents();
+  const eventsArray = Array.isArray(events) ? events : [];
 
-  const socialEvents = events.filter((e) => e.kind === "oficina" || e.kind === "acao_social");
+  const socialEvents = eventsArray.filter((e) => e.kind === "oficina" || e.kind === "acao_social");
 
   return (
     <div className="container mx-auto max-w-screen-2xl px-4 py-16 md:px-6 md:py-20">

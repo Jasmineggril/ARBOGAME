@@ -15,6 +15,7 @@ const primaryLinks = [
   { href: "/jogos", label: "Jogos" },
   { href: "/resultados", label: "Resultados" },
   { href: "/equipe", label: "Equipe" },
+  { href: "/contato", label: "Contato" },
 ];
 
 const moreLinks = [

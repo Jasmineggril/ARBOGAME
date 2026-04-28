@@ -35,10 +35,37 @@ router.get("/stats/overview", async (_req: Request, res: Response) => {
 
 router.get("/stats/recent-activity", async (_req: Request, res: Response) => {
   const [recentGames, recentEvents, recentResults, recentDocs] = await Promise.all([
-    db.select().from(gamesTable).orderBy(desc(gamesTable.createdAt)).limit(5),
-    db.select().from(eventsTable).orderBy(desc(eventsTable.createdAt)).limit(5),
-    db.select().from(resultsTable).orderBy(desc(resultsTable.createdAt)).limit(5),
-    db.select().from(documentsTable).orderBy(desc(documentsTable.createdAt)).limit(5),
+    db
+      .select({ id: gamesTable.id, title: gamesTable.title, kind: gamesTable.kind, createdAt: gamesTable.createdAt })
+      .from(gamesTable)
+      .orderBy(desc(gamesTable.createdAt))
+      .limit(5),
+    db
+      .select({ id: eventsTable.id, title: eventsTable.title, location: eventsTable.location, createdAt: eventsTable.createdAt })
+      .from(eventsTable)
+      .orderBy(desc(eventsTable.createdAt))
+      .limit(5),
+    db
+      .select({
+        id: resultsTable.id,
+        title: resultsTable.title,
+        participants: resultsTable.participants,
+        createdAt: resultsTable.createdAt,
+      })
+      .from(resultsTable)
+      .orderBy(desc(resultsTable.createdAt))
+      .limit(5),
+    db
+      .select({
+        id: documentsTable.id,
+        title: documentsTable.title,
+        category: documentsTable.category,
+        program: documentsTable.program,
+        createdAt: documentsTable.createdAt,
+      })
+      .from(documentsTable)
+      .orderBy(desc(documentsTable.createdAt))
+      .limit(5),
   ]);
 
   type Item = {

@@ -13,9 +13,13 @@ export default function Pibex() {
   const { data: docs = [], isLoading: loadingDocs } = useListDocuments();
   const { data: team = [] } = useListTeam();
 
-  const pibexDocs = docs.filter((d) => d.program === "pibex" || d.program === "geral");
-  const pibexEvents = events.filter((e) => e.kind === "oficina" || e.kind === "acao_social");
-  const pibexTeam = team.filter((m) => m.program === "pibex" || m.program === "ambos");
+  const eventsArray = Array.isArray(events) ? events : [];
+  const docsArray = Array.isArray(docs) ? docs : [];
+  const teamArray = Array.isArray(team) ? team : [];
+
+  const pibexDocs = docsArray.filter((d) => d.program === "pibex" || d.program === "geral");
+  const pibexEvents = eventsArray.filter((e) => e.kind === "oficina" || e.kind === "acao_social");
+  const pibexTeam = teamArray.filter((m) => m.program === "pibex" || m.program === "ambos");
 
   return (
     <div className="container mx-auto max-w-screen-2xl px-4 py-16 md:px-6 md:py-20">

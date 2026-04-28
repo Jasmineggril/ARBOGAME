@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { Navbar } from "./Navbar";
+import { SiteJourney } from "./SiteJourney";
 import { Footer } from "./Footer";
 import { IntroOverlay } from "../intro/IntroOverlay";
 import { CursorTrail } from "../intro/CursorTrail";
@@ -14,6 +15,7 @@ export function Layout({ children }: LayoutProps) {
       <IntroOverlay />
       <CursorTrail />
       <Navbar />
+      <SiteJourney />
       <main className="flex-1">{children}</main>
       <Footer />
     </div>
