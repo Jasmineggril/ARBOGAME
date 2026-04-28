@@ -1,0 +1,150 @@
+🌱🎮 ARBOGAME — ORGANIZAÇÃO FINAL DO PROJETO
+🧠 📌 CONCEITO GERAL
+
+O Arbogame é uma plataforma digital 3D interativa voltada à conscientização sobre arboviroses, utilizando jogos educativos como ferramenta de impacto social e aprendizado.
+
+👉 Isso conecta:
+
+PIBEX (extensão) → impacto na sociedade
+Iniciação Científica (pesquisa) → testes, validação e resultados
+🎯 🔬 DIVISÃO DO PROJETO (isso é MUITO importante)
+🌍 PIBEX (Extensão)
+
+Foco:
+
+Impacto social
+Educação em saúde
+Aplicação prática
+O que você mostra:
+Jogos educativos
+Uso por pessoas (testes)
+Conscientização sobre dengue, zika etc.
+Possível uso em escolas
+
+👉 Tradução:
+“Estou ajudando a sociedade”
+
+🧪 Iniciação Científica
+
+Foco:
+
+Pesquisa e validação
+O que você mostra:
+Testes com usuários
+Coleta de dados
+Análise de aprendizado
+Resultados
+
+👉 Tradução:
+“Estou comprovando que funciona”
+
+🌐 🧩 SITE DO ARBOGAME (ESTRUTURA COMPLETA)
+🟣 1. HOME (3D)
+
+👉 Diferencial:
+
+Ambiente 3D simples (tipo cenário com mosquito, casa, natureza)
+Botões interativos:
+🎮 Jogar
+📚 Sobre
+📊 Resultados
+
+💥 Isso já te destaca MUITO
+
+🧠 2. SOBRE O PROJETO
+
+Explicar:
+
+O que é o Arbogame
+Problema (arboviroses)
+Solução (gamificação)
+🎯 3. MISSÃO, VISÃO E VALORES
+Missão
+
+Promover a conscientização sobre arboviroses por meio de jogos educativos interativos.
+
+Visão
+
+Tornar-se uma plataforma referência em educação em saúde através da tecnologia.
+
+Valores
+Educação
+Inovação
+Impacto social
+Acessibilidade
+Tecnologia
+🎮 4. JOGOS (PRINCIPAL)
+Lista de jogos
+Botão “Jogar”
+Descrição
+Prints
+
+👉 Jogos via link (GitHub/itch.io)
+
+📤 5. ÁREA DE UPLOAD (ADMIN)
+Upload de:
+imagens
+PDFs
+Adição de jogos via link
+
+🔐 Protegido por login
+
+📊 6. RESULTADOS (CIENTÍFICO)
+Dados dos testes
+Feedback
+Aprendizado
+
+👉 Aqui entra Iniciação Científica
+
+🧪 7. METODOLOGIA
+Como o projeto foi feito
+Etapas
+
+👉 Linguagem acadêmica leve
+
+🌍 8. IMPACTO SOCIAL
+Conscientização
+Aplicação real
+
+👉 Aqui entra PIBEX
+
+🎓 9. EQUIPE
+Professor
+Alunos
+Cursos
+📄 10. PRODUÇÃO ACADÊMICA
+Relatórios
+Resumos
+Eventos
+🚀 11. FUTURO DO PROJETO
+Expansão
+App
+Parcerias
+🎮 🧠 IDEIA DO 3D (SIMPLES E FORTE)
+
+Não precisa complicar:
+
+👉 Cena simples:
+
+Casa 🏠
+Água parada 💧
+Mosquito 🦟
+
+👉 Interação:
+
+clicar → abre jogo
+clicar → mostra informação
+
+💥 Isso já é MUITO inovador
+
+🔥 DIFERENCIAL FINAL
+
+Você não está fazendo:
+❌ um site
+
+Você está fazendo:
+✅ plataforma interativa 3D + projeto científico + extensão social
+
+💥 FRASE FINAL (usa em tudo)
+
+O Arbogame integra tecnologia, educação e pesquisa para promover a conscientização sobre arboviroses de forma interativa e acessível.

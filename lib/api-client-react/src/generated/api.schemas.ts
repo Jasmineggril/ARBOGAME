@@ -8,3 +8,329 @@
 export interface HealthStatus {
   status: string;
 }
+
+export interface ErrorResponse {
+  message: string;
+}
+
+export interface LoginBody {
+  password: string;
+}
+
+export interface AuthStatus {
+  isAdmin: boolean;
+}
+
+export type GameKind = (typeof GameKind)[keyof typeof GameKind];
+
+export const GameKind = {
+  virtual: "virtual",
+  board: "board",
+  hybrid: "hybrid",
+} as const;
+
+export interface Game {
+  id: number;
+  title: string;
+  description: string;
+  kind: GameKind;
+  playUrl?: string | null;
+  imageUrl?: string | null;
+  tags: string[];
+  createdAt: string;
+}
+
+export type CreateGameBodyKind =
+  (typeof CreateGameBodyKind)[keyof typeof CreateGameBodyKind];
+
+export const CreateGameBodyKind = {
+  virtual: "virtual",
+  board: "board",
+  hybrid: "hybrid",
+} as const;
+
+export interface CreateGameBody {
+  /** @minLength 1 */
+  title: string;
+  description: string;
+  kind: CreateGameBodyKind;
+  playUrl?: string | null;
+  imageUrl?: string | null;
+  tags?: string[];
+}
+
+export type UpdateGameBodyKind =
+  (typeof UpdateGameBodyKind)[keyof typeof UpdateGameBodyKind];
+
+export const UpdateGameBodyKind = {
+  virtual: "virtual",
+  board: "board",
+  hybrid: "hybrid",
+} as const;
+
+export interface UpdateGameBody {
+  title?: string;
+  description?: string;
+  kind?: UpdateGameBodyKind;
+  playUrl?: string | null;
+  imageUrl?: string | null;
+  tags?: string[];
+}
+
+export type EventKind = (typeof EventKind)[keyof typeof EventKind];
+
+export const EventKind = {
+  oficina: "oficina",
+  apresentacao: "apresentacao",
+  acao_social: "acao_social",
+  evento_academico: "evento_academico",
+} as const;
+
+export interface Event {
+  id: number;
+  title: string;
+  description: string;
+  location: string;
+  eventDate: string;
+  kind: EventKind;
+  imageUrl?: string | null;
+  createdAt: string;
+}
+
+export type CreateEventBodyKind =
+  (typeof CreateEventBodyKind)[keyof typeof CreateEventBodyKind];
+
+export const CreateEventBodyKind = {
+  oficina: "oficina",
+  apresentacao: "apresentacao",
+  acao_social: "acao_social",
+  evento_academico: "evento_academico",
+} as const;
+
+export interface CreateEventBody {
+  /** @minLength 1 */
+  title: string;
+  description: string;
+  location: string;
+  eventDate: string;
+  kind: CreateEventBodyKind;
+  imageUrl?: string | null;
+}
+
+export type UpdateEventBodyKind =
+  (typeof UpdateEventBodyKind)[keyof typeof UpdateEventBodyKind];
+
+export const UpdateEventBodyKind = {
+  oficina: "oficina",
+  apresentacao: "apresentacao",
+  acao_social: "acao_social",
+  evento_academico: "evento_academico",
+} as const;
+
+export interface UpdateEventBody {
+  title?: string;
+  description?: string;
+  location?: string;
+  eventDate?: string;
+  kind?: UpdateEventBodyKind;
+  imageUrl?: string | null;
+}
+
+export interface Result {
+  id: number;
+  title: string;
+  summary: string;
+  participants: number;
+  satisfactionScore?: number | null;
+  learningScore?: number | null;
+  methodology: string;
+  gameId?: number | null;
+  createdAt: string;
+}
+
+export interface CreateResultBody {
+  /** @minLength 1 */
+  title: string;
+  summary: string;
+  /** @minimum 0 */
+  participants: number;
+  satisfactionScore?: number | null;
+  learningScore?: number | null;
+  methodology: string;
+  gameId?: number | null;
+}
+
+export type DocumentCategory =
+  (typeof DocumentCategory)[keyof typeof DocumentCategory];
+
+export const DocumentCategory = {
+  report: "report",
+  article: "article",
+  certificate: "certificate",
+  edital: "edital",
+  other: "other",
+} as const;
+
+export type DocumentProgram =
+  (typeof DocumentProgram)[keyof typeof DocumentProgram];
+
+export const DocumentProgram = {
+  pibex: "pibex",
+  pic: "pic",
+  geral: "geral",
+} as const;
+
+export interface Document {
+  id: number;
+  title: string;
+  description: string;
+  category: DocumentCategory;
+  program: DocumentProgram;
+  fileUrl: string;
+  createdAt: string;
+}
+
+export type CreateDocumentBodyCategory =
+  (typeof CreateDocumentBodyCategory)[keyof typeof CreateDocumentBodyCategory];
+
+export const CreateDocumentBodyCategory = {
+  report: "report",
+  article: "article",
+  certificate: "certificate",
+  edital: "edital",
+  other: "other",
+} as const;
+
+export type CreateDocumentBodyProgram =
+  (typeof CreateDocumentBodyProgram)[keyof typeof CreateDocumentBodyProgram];
+
+export const CreateDocumentBodyProgram = {
+  pibex: "pibex",
+  pic: "pic",
+  geral: "geral",
+} as const;
+
+export interface CreateDocumentBody {
+  /** @minLength 1 */
+  title: string;
+  description: string;
+  category: CreateDocumentBodyCategory;
+  program: CreateDocumentBodyProgram;
+  /** @minLength 1 */
+  fileUrl: string;
+}
+
+export type TeamMemberProgram =
+  (typeof TeamMemberProgram)[keyof typeof TeamMemberProgram];
+
+export const TeamMemberProgram = {
+  pibex: "pibex",
+  pic: "pic",
+  ambos: "ambos",
+  orientador: "orientador",
+} as const;
+
+export interface TeamMember {
+  id: number;
+  name: string;
+  role: string;
+  course: string;
+  program: TeamMemberProgram;
+  bio?: string | null;
+  photoUrl?: string | null;
+  sortOrder: number;
+}
+
+export type CreateTeamMemberBodyProgram =
+  (typeof CreateTeamMemberBodyProgram)[keyof typeof CreateTeamMemberBodyProgram];
+
+export const CreateTeamMemberBodyProgram = {
+  pibex: "pibex",
+  pic: "pic",
+  ambos: "ambos",
+  orientador: "orientador",
+} as const;
+
+export interface CreateTeamMemberBody {
+  /** @minLength 1 */
+  name: string;
+  role: string;
+  course: string;
+  program: CreateTeamMemberBodyProgram;
+  bio?: string | null;
+  photoUrl?: string | null;
+  sortOrder?: number;
+}
+
+export type UpdateTeamMemberBodyProgram =
+  (typeof UpdateTeamMemberBodyProgram)[keyof typeof UpdateTeamMemberBodyProgram];
+
+export const UpdateTeamMemberBodyProgram = {
+  pibex: "pibex",
+  pic: "pic",
+  ambos: "ambos",
+  orientador: "orientador",
+} as const;
+
+export interface UpdateTeamMemberBody {
+  name?: string;
+  role?: string;
+  course?: string;
+  program?: UpdateTeamMemberBodyProgram;
+  bio?: string | null;
+  photoUrl?: string | null;
+  sortOrder?: number;
+}
+
+export interface StatsOverview {
+  totalGames: number;
+  totalEvents: number;
+  totalParticipants: number;
+  totalDocuments: number;
+  totalTeamMembers: number;
+  avgSatisfaction?: number | null;
+}
+
+export type ActivityItemKind =
+  (typeof ActivityItemKind)[keyof typeof ActivityItemKind];
+
+export const ActivityItemKind = {
+  game: "game",
+  event: "event",
+  result: "result",
+  document: "document",
+} as const;
+
+export interface ActivityItem {
+  id: string;
+  kind: ActivityItemKind;
+  title: string;
+  subtitle: string;
+  createdAt: string;
+}
+
+export interface RequestUploadUrlBody {
+  name: string;
+  size: number;
+  contentType: string;
+}
+
+export interface RequestUploadUrlResponse {
+  uploadURL: string;
+  objectPath: string;
+}
+
+export type ListDocumentsParams = {
+  category?: ListDocumentsCategory;
+};
+
+export type ListDocumentsCategory =
+  (typeof ListDocumentsCategory)[keyof typeof ListDocumentsCategory];
+
+export const ListDocumentsCategory = {
+  report: "report",
+  article: "article",
+  certificate: "certificate",
+  edital: "edital",
+  other: "other",
+} as const;

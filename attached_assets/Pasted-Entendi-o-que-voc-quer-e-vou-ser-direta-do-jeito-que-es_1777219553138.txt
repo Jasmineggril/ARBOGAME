@@ -1,0 +1,69 @@
+Entendi o que você quer — e vou ser direta: do jeito que está, seu logo da ARBOGAME é forte visualmente, mas a “entrada” não conversa com essa energia criativa. Ele pede algo mais vivo, quase como se fosse um jogo começando.
+
+Aquele sapo estilizado já dá uma vibe meio orgânica + misteriosa + gamer. Então a entrada precisa transformar isso em experiência, não só imagem parada.
+
+Aqui vão algumas ideias de como você pode se expressar melhor nessa “entrada interativa”:
+
+🎮 1. Entrada tipo “spawn de jogo”
+
+Em vez de só aparecer o logo:
+
+Tela escura
+Sons de floresta (insetos, água)
+Pequenas partículas roxas surgindo
+O sapo “se forma” aos poucos (como se estivesse sendo carregado)
+
+👉 A palavra ARBOGAME aparece depois, com efeito glitch ou neon.
+
+🐸 2. Interação com o mouse (ou toque)
+
+Quando a pessoa entra no site:
+
+O cursor deixa um rastro roxo
+Quando passa por cima do sapo, ele “respira” ou pulsa
+Clique → o sapo reage (tipo um mini feedback divertido)
+
+👉 Isso cria conexão imediata.
+
+🌌 3. Entrada 3D leve
+
+Você comentou sobre site 3D — então usa isso já na entrada:
+
+O sapo flutuando num ambiente escuro com luz roxa
+Movimento lento (idle animation)
+Usuário pode girar o cenário ou aproximar
+
+👉 Dá sensação de mundo, não só página.
+
+⚡ 4. Frase de impacto (importante)
+
+Você precisa se expressar também com palavras. Algo curto tipo:
+
+“Onde ideias viram jogos.”
+“Entre. Explore. Crie.”
+“Seu mundo começa aqui.”
+
+👉 Isso aparece junto com a animação.
+
+🔊 5. Som (subestimado, mas poderoso)
+
+Um som leve na entrada já muda tudo:
+
+Um “plim” futurista
+Ou som de natureza + sintetizador
+🧠 Ideia mais forte (se quiser algo diferenciado mesmo)
+
+Transforma a entrada em uma mini experiência jogável:
+
+Usuário clica pra “desbloquear” o site
+Tipo um botão: “Iniciar”
+Ou o sapo “salta” e abre o conteúdo
+
+Se quiser, eu posso:
+
+montar o roteiro completo da animação
+ou já te entregar o código base (HTML + CSS + JS ou React/Three.js) dessa entrada
+
+Só me diz qual vibe você quer mais:
+👉 mais simples e elegante
+👉 ou mais “WOW gamer interativo”

@@ -8,9 +8,374 @@
 import * as zod from "zod";
 
 /**
- * Returns server health status
  * @summary Health check
  */
 export const HealthCheckResponse = zod.object({
   status: zod.string(),
+});
+
+/**
+ * @summary Admin login
+ */
+export const AdminLoginBody = zod.object({
+  password: zod.string(),
+});
+
+export const AdminLoginResponse = zod.object({
+  isAdmin: zod.boolean(),
+});
+
+/**
+ * @summary Admin logout
+ */
+export const AdminLogoutResponse = zod.object({
+  isAdmin: zod.boolean(),
+});
+
+/**
+ * @summary Get current auth status
+ */
+export const GetAuthStatusResponse = zod.object({
+  isAdmin: zod.boolean(),
+});
+
+/**
+ * @summary List all games
+ */
+export const ListGamesResponseItem = zod.object({
+  id: zod.number(),
+  title: zod.string(),
+  description: zod.string(),
+  kind: zod.enum(["virtual", "board", "hybrid"]),
+  playUrl: zod.string().nullish(),
+  imageUrl: zod.string().nullish(),
+  tags: zod.array(zod.string()),
+  createdAt: zod.coerce.date(),
+});
+export const ListGamesResponse = zod.array(ListGamesResponseItem);
+
+/**
+ * @summary Create a new game
+ */
+
+export const CreateGameBody = zod.object({
+  title: zod.string().min(1),
+  description: zod.string(),
+  kind: zod.enum(["virtual", "board", "hybrid"]),
+  playUrl: zod.string().nullish(),
+  imageUrl: zod.string().nullish(),
+  tags: zod.array(zod.string()).optional(),
+});
+
+/**
+ * @summary Get a game by id
+ */
+export const GetGameParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const GetGameResponse = zod.object({
+  id: zod.number(),
+  title: zod.string(),
+  description: zod.string(),
+  kind: zod.enum(["virtual", "board", "hybrid"]),
+  playUrl: zod.string().nullish(),
+  imageUrl: zod.string().nullish(),
+  tags: zod.array(zod.string()),
+  createdAt: zod.coerce.date(),
+});
+
+/**
+ * @summary Update a game
+ */
+export const UpdateGameParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const UpdateGameBody = zod.object({
+  title: zod.string().optional(),
+  description: zod.string().optional(),
+  kind: zod.enum(["virtual", "board", "hybrid"]).optional(),
+  playUrl: zod.string().nullish(),
+  imageUrl: zod.string().nullish(),
+  tags: zod.array(zod.string()).optional(),
+});
+
+export const UpdateGameResponse = zod.object({
+  id: zod.number(),
+  title: zod.string(),
+  description: zod.string(),
+  kind: zod.enum(["virtual", "board", "hybrid"]),
+  playUrl: zod.string().nullish(),
+  imageUrl: zod.string().nullish(),
+  tags: zod.array(zod.string()),
+  createdAt: zod.coerce.date(),
+});
+
+/**
+ * @summary Delete a game
+ */
+export const DeleteGameParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+/**
+ * @summary List all events
+ */
+export const ListEventsResponseItem = zod.object({
+  id: zod.number(),
+  title: zod.string(),
+  description: zod.string(),
+  location: zod.string(),
+  eventDate: zod.coerce.date(),
+  kind: zod.enum([
+    "oficina",
+    "apresentacao",
+    "acao_social",
+    "evento_academico",
+  ]),
+  imageUrl: zod.string().nullish(),
+  createdAt: zod.coerce.date(),
+});
+export const ListEventsResponse = zod.array(ListEventsResponseItem);
+
+/**
+ * @summary Create a new event
+ */
+
+export const CreateEventBody = zod.object({
+  title: zod.string().min(1),
+  description: zod.string(),
+  location: zod.string(),
+  eventDate: zod.coerce.date(),
+  kind: zod.enum([
+    "oficina",
+    "apresentacao",
+    "acao_social",
+    "evento_academico",
+  ]),
+  imageUrl: zod.string().nullish(),
+});
+
+/**
+ * @summary Update an event
+ */
+export const UpdateEventParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const UpdateEventBody = zod.object({
+  title: zod.string().optional(),
+  description: zod.string().optional(),
+  location: zod.string().optional(),
+  eventDate: zod.coerce.date().optional(),
+  kind: zod
+    .enum(["oficina", "apresentacao", "acao_social", "evento_academico"])
+    .optional(),
+  imageUrl: zod.string().nullish(),
+});
+
+export const UpdateEventResponse = zod.object({
+  id: zod.number(),
+  title: zod.string(),
+  description: zod.string(),
+  location: zod.string(),
+  eventDate: zod.coerce.date(),
+  kind: zod.enum([
+    "oficina",
+    "apresentacao",
+    "acao_social",
+    "evento_academico",
+  ]),
+  imageUrl: zod.string().nullish(),
+  createdAt: zod.coerce.date(),
+});
+
+/**
+ * @summary Delete an event
+ */
+export const DeleteEventParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+/**
+ * @summary List all research results
+ */
+export const ListResultsResponseItem = zod.object({
+  id: zod.number(),
+  title: zod.string(),
+  summary: zod.string(),
+  participants: zod.number(),
+  satisfactionScore: zod.number().nullish(),
+  learningScore: zod.number().nullish(),
+  methodology: zod.string(),
+  gameId: zod.number().nullish(),
+  createdAt: zod.coerce.date(),
+});
+export const ListResultsResponse = zod.array(ListResultsResponseItem);
+
+/**
+ * @summary Create a new research result
+ */
+
+export const createResultBodyParticipantsMin = 0;
+
+export const CreateResultBody = zod.object({
+  title: zod.string().min(1),
+  summary: zod.string(),
+  participants: zod.number().min(createResultBodyParticipantsMin),
+  satisfactionScore: zod.number().nullish(),
+  learningScore: zod.number().nullish(),
+  methodology: zod.string(),
+  gameId: zod.number().nullish(),
+});
+
+/**
+ * @summary Delete a result
+ */
+export const DeleteResultParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+/**
+ * @summary List academic documents
+ */
+export const ListDocumentsQueryParams = zod.object({
+  category: zod
+    .enum(["report", "article", "certificate", "edital", "other"])
+    .optional(),
+});
+
+export const ListDocumentsResponseItem = zod.object({
+  id: zod.number(),
+  title: zod.string(),
+  description: zod.string(),
+  category: zod.enum(["report", "article", "certificate", "edital", "other"]),
+  program: zod.enum(["pibex", "pic", "geral"]),
+  fileUrl: zod.string(),
+  createdAt: zod.coerce.date(),
+});
+export const ListDocumentsResponse = zod.array(ListDocumentsResponseItem);
+
+/**
+ * @summary Create a new document entry
+ */
+
+export const CreateDocumentBody = zod.object({
+  title: zod.string().min(1),
+  description: zod.string(),
+  category: zod.enum(["report", "article", "certificate", "edital", "other"]),
+  program: zod.enum(["pibex", "pic", "geral"]),
+  fileUrl: zod.string().min(1),
+});
+
+/**
+ * @summary Delete a document
+ */
+export const DeleteDocumentParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+/**
+ * @summary List team members
+ */
+export const ListTeamResponseItem = zod.object({
+  id: zod.number(),
+  name: zod.string(),
+  role: zod.string(),
+  course: zod.string(),
+  program: zod.enum(["pibex", "pic", "ambos", "orientador"]),
+  bio: zod.string().nullish(),
+  photoUrl: zod.string().nullish(),
+  sortOrder: zod.number(),
+});
+export const ListTeamResponse = zod.array(ListTeamResponseItem);
+
+/**
+ * @summary Add a team member
+ */
+
+export const CreateTeamMemberBody = zod.object({
+  name: zod.string().min(1),
+  role: zod.string(),
+  course: zod.string(),
+  program: zod.enum(["pibex", "pic", "ambos", "orientador"]),
+  bio: zod.string().nullish(),
+  photoUrl: zod.string().nullish(),
+  sortOrder: zod.number().optional(),
+});
+
+/**
+ * @summary Update a team member
+ */
+export const UpdateTeamMemberParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const UpdateTeamMemberBody = zod.object({
+  name: zod.string().optional(),
+  role: zod.string().optional(),
+  course: zod.string().optional(),
+  program: zod.enum(["pibex", "pic", "ambos", "orientador"]).optional(),
+  bio: zod.string().nullish(),
+  photoUrl: zod.string().nullish(),
+  sortOrder: zod.number().optional(),
+});
+
+export const UpdateTeamMemberResponse = zod.object({
+  id: zod.number(),
+  name: zod.string(),
+  role: zod.string(),
+  course: zod.string(),
+  program: zod.enum(["pibex", "pic", "ambos", "orientador"]),
+  bio: zod.string().nullish(),
+  photoUrl: zod.string().nullish(),
+  sortOrder: zod.number(),
+});
+
+/**
+ * @summary Remove a team member
+ */
+export const DeleteTeamMemberParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+/**
+ * @summary Dashboard overview stats
+ */
+export const GetStatsOverviewResponse = zod.object({
+  totalGames: zod.number(),
+  totalEvents: zod.number(),
+  totalParticipants: zod.number(),
+  totalDocuments: zod.number(),
+  totalTeamMembers: zod.number(),
+  avgSatisfaction: zod.number().nullish(),
+});
+
+/**
+ * @summary Recent project activity feed
+ */
+export const GetRecentActivityResponseItem = zod.object({
+  id: zod.string(),
+  kind: zod.enum(["game", "event", "result", "document"]),
+  title: zod.string(),
+  subtitle: zod.string(),
+  createdAt: zod.coerce.date(),
+});
+export const GetRecentActivityResponse = zod.array(
+  GetRecentActivityResponseItem,
+);
+
+/**
+ * @summary Request a presigned upload URL
+ */
+export const RequestUploadUrlBody = zod.object({
+  name: zod.string(),
+  size: zod.number(),
+  contentType: zod.string(),
+});
+
+export const RequestUploadUrlResponse = zod.object({
+  uploadURL: zod.string(),
+  objectPath: zod.string(),
 });
