@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd artifacts/arbogame && pnpm run build",
-  "installCommand": "pnpm install",
+  "buildCommand": "pnpm --filter '@workspace/arbogame' run build",
+  "installCommand": "pnpm install --recursive",
   "outputDirectory": "artifacts/arbogame/dist/public"
 }
