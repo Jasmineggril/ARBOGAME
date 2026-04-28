@@ -23,7 +23,7 @@ router.post("/events", requireAdmin, async (req: Request, res: Response) => {
       title: parsed.data.title,
       description: parsed.data.description,
       location: parsed.data.location,
-      eventDate: parsed.data.eventDate,
+      eventDate: parsed.data.eventDate.toISOString(),
       kind: parsed.data.kind,
       imageUrl: parsed.data.imageUrl ?? null,
     })
@@ -42,9 +42,17 @@ router.patch("/events/:id", requireAdmin, async (req: Request, res: Response) =>
     res.status(400).json({ message: "Invalid body" });
     return;
   }
+  const updateData: Record<string, any> = {};
+  if (parsed.data.title !== undefined) updateData.title = parsed.data.title;
+  if (parsed.data.description !== undefined) updateData.description = parsed.data.description;
+  if (parsed.data.kind !== undefined) updateData.kind = parsed.data.kind;
+  if (parsed.data.imageUrl !== undefined) updateData.imageUrl = parsed.data.imageUrl;
+  if (parsed.data.location !== undefined) updateData.location = parsed.data.location;
+  if (parsed.data.eventDate !== undefined) updateData.eventDate = parsed.data.eventDate.toISOString();
+  
   const [row] = await db
     .update(eventsTable)
-    .set(parsed.data)
+    .set(updateData)
     .where(eq(eventsTable.id, id))
     .returning();
   if (!row) {

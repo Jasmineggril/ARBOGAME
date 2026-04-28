@@ -199,3 +199,5 @@ export function HeroScene() {
     </div>
   );
 }
+
+export default HeroScene;
