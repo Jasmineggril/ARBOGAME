@@ -4,7 +4,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Layout } from "@/components/layout/Layout";
-
+import { AuthProvider } from "@/hooks/use-auth";
+import { AuthModal } from "@/components/AuthModal";
 const Home = lazy(() => import("@/pages/Home"));
 const Sobre = lazy(() => import("@/pages/Sobre"));
 const Missao = lazy(() => import("@/pages/Missao"));
@@ -19,6 +20,7 @@ const Producao = lazy(() => import("@/pages/Producao"));
 const Futuro = lazy(() => import("@/pages/Futuro"));
 const Admin = lazy(() => import("@/pages/admin/Admin"));
 const Contato = lazy(() => import("@/pages/Contato"));
+const Perfil = lazy(() => import("@/pages/Perfil"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 const queryClient = new QueryClient({
@@ -46,6 +48,7 @@ function Router() {
       <Route path="/producao" component={Producao} />
       <Route path="/futuro" component={Futuro} />
       <Route path="/contato" component={Contato} />
+      <Route path="/perfil" component={Perfil} />
       <Route path="/admin" component={Admin} />
       <Route component={NotFound} />
     </Switch>
@@ -56,7 +59,8 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+        <AuthProvider>
+          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
           <Layout>
             <Suspense
               fallback={
@@ -68,7 +72,9 @@ function App() {
               <Router />
             </Suspense>
           </Layout>
-        </WouterRouter>
+          </WouterRouter>
+          <AuthModal />
+        </AuthProvider>
         <Toaster />
       </TooltipProvider>
     </QueryClientProvider>

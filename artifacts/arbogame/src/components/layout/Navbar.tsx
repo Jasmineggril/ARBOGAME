@@ -2,6 +2,14 @@ import { Link, useLocation } from "wouter";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/use-auth";
+import { LogOut, User } from "lucide-react";
+import {
+  DropdownMenu as UserDropdown,
+  DropdownMenuContent as UserDropdownContent,
+  DropdownMenuItem as UserDropdownItem,
+  DropdownMenuTrigger as UserDropdownTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,6 +42,7 @@ const allLinks = [...primaryLinks, ...moreLinks];
 export function Navbar() {
   const [location] = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+    const { user, openAuth, logout } = useAuth();
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/70">
@@ -78,9 +87,51 @@ export function Navbar() {
         </div>
 
         <div className="ml-auto flex items-center gap-2">
-          <Button asChild variant="default" size="sm" className="hidden sm:inline-flex">
-            <Link href="/jogos">Jogar agora</Link>
-          </Button>
+          {user ? (
+            <>
+              <Button asChild variant="default" size="sm" className="hidden sm:inline-flex">
+                <Link href="/jogos">Jogar agora</Link>
+              </Button>
+              <UserDropdown>
+                <UserDropdownTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="gap-2 hidden sm:inline-flex"
+                  >
+                    <User className="h-4 w-4" />
+                    {user.name}
+                  </Button>
+                </UserDropdownTrigger>
+                <UserDropdownContent align="end">
+                  <UserDropdownItem asChild>
+                    <Link href="/perfil" className="flex items-center gap-2">
+                      <User className="h-4 w-4" />
+                      Meu Perfil
+                    </Link>
+                  </UserDropdownItem>
+                  <UserDropdownItem onClick={logout} className="text-red-600">
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Sair
+                  </UserDropdownItem>
+                </UserDropdownContent>
+              </UserDropdown>
+            </>
+          ) : (
+            <>
+              <Button
+                variant="default"
+                size="sm"
+                onClick={openAuth}
+                className="hidden sm:inline-flex"
+              >
+                Entrar / Cadastro
+              </Button>
+              <Button asChild variant="outline" size="sm" className="hidden sm:inline-flex">
+                <Link href="/jogos">Jogar agora</Link>
+              </Button>
+            </>
+          )}
           <Button
             variant="ghost"
             size="icon"
