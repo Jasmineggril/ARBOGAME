@@ -1,0 +1,110 @@
+🚀 EXECUTE O SQL AGORA!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASSO 1️⃣  - Abra Supabase Dashboard
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Copy-paste link no navegador:
+👉 https://supabase.com/dashboard
+
+OU se já está em Supabase:
+✓ Faça login
+✓ Selecione projeto: honcvotcxibuezaabybl
+
+
+PASSO 2️⃣  - SQL Editor
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+No dashboard Supabase:
+1. Procure no painel esquerdo: "SQL Editor"
+2. Clique em "SQL Editor"
+
+
+PASSO 3️⃣  - Nova Query
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Quando estiver no SQL Editor:
+1. Procure botão azul no topo: "New Query"
+2. Clique nele
+3. Uma nova query será aberta
+
+
+PASSO 4️⃣  - Copie o SQL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Aqui neste projeto, abra:
+
+📁 artifacts/arbogame/supabase/migrations/
+   002_complete_schema_with_ranking.sql
+
+Copie TODO o conteúdo:
+✓ Ctrl+A (selecionar tudo)
+✓ Ctrl+C (copiar)
+
+
+PASSO 5️⃣  - Cole no SQL Editor Supabase
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Na query que abriu no Supabase:
+✓ Ctrl+V (colar)
+✓ Você vai ver setas azuis (✓) aparecendo - é normal!
+
+
+PASSO 6️⃣  - Execute!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Botão no topo direito: "Run" (ou ▶️)
+✓ Clique nele
+✓ Aguarde 1-2 segundos
+✓ Você verá "SUCCESS" em verde
+
+
+✅ PRONTO! Suas tabelas foram criadas!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+VERIFICAR QUE FOI CRIADO:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. No Supabase Dashboard, menu esquerdo procure: "Tables"
+2. CLick em "Tables"
+3. Você deve ver 8 tabelas:
+   ✓ profiles
+   ✓ badges
+   ✓ games
+   ✓ likes
+   ✓ comments
+   ✓ views
+   ✓ user_badges
+
+4. Procure também por "Views" (deve ter leaderboard)
+
+Se vir tudo isso, SUCESSO! 🎉
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PRÓXIMOS PASSOS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Testar Localmente:
+
+   cd /workspaces/ARBOGAME/artifacts/arbogame
+   pnpm dev
+
+   Acesse: http://localhost:5173
+
+2. Fazer signup
+3. Criar um jogo
+4. Ver ranking
+5. Curtir game
+6. Deploy para Vercel (automático)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⏰ TEMPO: 3 minutos para setup completo!
+
+🎉 Sistema gamificado pronto para ir ao ar!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
