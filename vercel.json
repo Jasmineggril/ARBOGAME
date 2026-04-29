@@ -1,5 +1,50 @@
 {
-  "buildCommand": "pnpm --filter '@workspace/arbogame' run build",
+  "projectId": "prj_qGvH9QkZ9RZH3H3H3H3H",
+  "orgId": "team_qGvH9QkZ9RZH",
+  "root": ".",
+  "buildCommand": "pnpm run build && pnpm --filter '@workspace/arbogame' run build",
   "installCommand": "pnpm install --recursive",
-  "outputDirectory": "artifacts/arbogame/dist/public"
+  "outputDirectory": "artifacts/arbogame/dist",
+  "devCommand": "pnpm dev",
+  "framework": "vite",
+  "nodeVersion": "18.x",
+  "env": [
+    "VITE_SUPABASE_URL",
+    "VITE_SUPABASE_ANON_KEY"
+  ],
+  "build": {
+    "env": [
+      "VITE_SUPABASE_URL",
+      "VITE_SUPABASE_ANON_KEY"
+    ]
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
 }
