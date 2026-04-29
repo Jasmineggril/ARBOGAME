@@ -4,12 +4,17 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Layout } from "@/components/layout/Layout";
-import { AuthProvider } from "@/hooks/use-auth";
-import { AuthModal } from "@/components/AuthModal";
+import { AuthProvider } from "@/contexts/AuthContext";
+
 const Home = lazy(() => import("@/pages/Home"));
 const Sobre = lazy(() => import("@/pages/Sobre"));
 const Missao = lazy(() => import("@/pages/Missao"));
 const Jogos = lazy(() => import("@/pages/Jogos"));
+const JogosApp = lazy(() => import("@/pages/JogosApp"));
+const Ranking = lazy(() => import("@/pages/Ranking"));
+const Dashboard = lazy(() => import("@/pages/Dashboard"));
+const CriarJogo = lazy(() => import("@/pages/CriarJogo"));
+const MeusJogos = lazy(() => import("@/pages/MeusJogos"));
 const Resultados = lazy(() => import("@/pages/Resultados"));
 const Metodologia = lazy(() => import("@/pages/Metodologia"));
 const Impacto = lazy(() => import("@/pages/Impacto"));
@@ -20,7 +25,6 @@ const Producao = lazy(() => import("@/pages/Producao"));
 const Futuro = lazy(() => import("@/pages/Futuro"));
 const Admin = lazy(() => import("@/pages/admin/Admin"));
 const Contato = lazy(() => import("@/pages/Contato"));
-const Perfil = lazy(() => import("@/pages/Perfil"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 const queryClient = new QueryClient({
@@ -39,6 +43,11 @@ function Router() {
       <Route path="/sobre" component={Sobre} />
       <Route path="/missao" component={Missao} />
       <Route path="/jogos" component={Jogos} />
+      <Route path="/jogos-app" component={JogosApp} />
+      <Route path="/ranking" component={Ranking} />
+      <Route path="/dashboard" component={Dashboard} />
+      <Route path="/criar-jogo" component={CriarJogo} />
+      <Route path="/meus-jogos" component={MeusJogos} />
       <Route path="/resultados" component={Resultados} />
       <Route path="/metodologia" component={Metodologia} />
       <Route path="/impacto" component={Impacto} />
@@ -48,7 +57,6 @@ function Router() {
       <Route path="/producao" component={Producao} />
       <Route path="/futuro" component={Futuro} />
       <Route path="/contato" component={Contato} />
-      <Route path="/perfil" component={Perfil} />
       <Route path="/admin" component={Admin} />
       <Route component={NotFound} />
     </Switch>
@@ -61,21 +69,20 @@ function App() {
       <TooltipProvider>
         <AuthProvider>
           <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-          <Layout>
-            <Suspense
-              fallback={
-                <div className="container mx-auto flex min-h-[40vh] items-center justify-center px-4 py-16 text-sm text-muted-foreground md:px-6">
-                  Carregando conteúdo...
-                </div>
-              }
-            >
-              <Router />
-            </Suspense>
-          </Layout>
+            <Layout>
+              <Suspense
+                fallback={
+                  <div className="container mx-auto flex min-h-[40vh] items-center justify-center px-4 py-16 text-sm text-muted-foreground md:px-6">
+                    Carregando conteúdo...
+                  </div>
+                }
+              >
+                <Router />
+              </Suspense>
+            </Layout>
           </WouterRouter>
-          <AuthModal />
+          <Toaster />
         </AuthProvider>
-        <Toaster />
       </TooltipProvider>
     </QueryClientProvider>
   );

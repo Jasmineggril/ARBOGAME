@@ -2,14 +2,7 @@ import { Link, useLocation } from "wouter";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/use-auth";
-import { LogOut, User } from "lucide-react";
-import {
-  DropdownMenu as UserDropdown,
-  DropdownMenuContent as UserDropdownContent,
-  DropdownMenuItem as UserDropdownItem,
-  DropdownMenuTrigger as UserDropdownTrigger,
-} from "@/components/ui/dropdown-menu";
+import { AuthModal } from "@/components/AuthModal";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -42,7 +35,6 @@ const allLinks = [...primaryLinks, ...moreLinks];
 export function Navbar() {
   const [location] = useLocation();
   const [isOpen, setIsOpen] = useState(false);
-    const { user, openAuth, logout } = useAuth();
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/70">
@@ -87,51 +79,15 @@ export function Navbar() {
         </div>
 
         <div className="ml-auto flex items-center gap-2">
-          {user ? (
-            <>
-              <Button asChild variant="default" size="sm" className="hidden sm:inline-flex">
-                <Link href="/jogos">Jogar agora</Link>
-              </Button>
-              <UserDropdown>
-                <UserDropdownTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="gap-2 hidden sm:inline-flex"
-                  >
-                    <User className="h-4 w-4" />
-                    {user.name}
-                  </Button>
-                </UserDropdownTrigger>
-                <UserDropdownContent align="end">
-                  <UserDropdownItem asChild>
-                    <Link href="/perfil" className="flex items-center gap-2">
-                      <User className="h-4 w-4" />
-                      Meu Perfil
-                    </Link>
-                  </UserDropdownItem>
-                  <UserDropdownItem onClick={logout} className="text-red-600">
-                    <LogOut className="h-4 w-4 mr-2" />
-                    Sair
-                  </UserDropdownItem>
-                </UserDropdownContent>
-              </UserDropdown>
-            </>
-          ) : (
-            <>
-              <Button
-                variant="default"
-                size="sm"
-                onClick={openAuth}
-                className="hidden sm:inline-flex"
-              >
-                Entrar / Cadastro
-              </Button>
-              <Button asChild variant="outline" size="sm" className="hidden sm:inline-flex">
-                <Link href="/jogos">Jogar agora</Link>
-              </Button>
-            </>
-          )}
+          <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex gap-1">
+            <Link href="/ranking">🏆 Ranking</Link>
+          </Button>
+          <Link href="/dashboard" className="hidden sm:inline-flex">
+            <Button variant="ghost" size="sm" className="gap-1">
+              📊 Dashboard
+            </Button>
+          </Link>
+          <AuthModal />
           <Button
             variant="ghost"
             size="icon"
@@ -147,6 +103,20 @@ export function Navbar() {
       {isOpen && (
         <div className="container mx-auto border-t bg-background px-4 py-4 lg:hidden">
           <div className="flex flex-col space-y-2">
+            <Link
+              href="/ranking"
+              onClick={() => setIsOpen(false)}
+              className="rounded-md px-3 py-2 text-sm transition-colors text-foreground/70 hover:bg-muted"
+            >
+              🏆 Ranking
+            </Link>
+            <Link
+              href="/dashboard"
+              onClick={() => setIsOpen(false)}
+              className="rounded-md px-3 py-2 text-sm transition-colors text-foreground/70 hover:bg-muted"
+            >
+              📊 Dashboard
+            </Link>
             {allLinks.map((link) => (
               <Link
                 key={link.href}

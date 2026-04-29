@@ -1,136 +1,221 @@
 import { useState } from 'react';
-import { useAuth } from '@/hooks/use-auth';
+import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { X } from 'lucide-react';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { AlertCircle, Loader2 } from 'lucide-react';
 
 export function AuthModal() {
-  const { isOpen, closeAuth, login, signup } = useAuth();
-  const [mode, setMode] = useState<'login' | 'signup'>('login');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const { user, signIn, signUp, signOut } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [open, setOpen] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Form states
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [signupEmail, setSignupEmail] = useState('');
+  const [signupPassword, setSignupPassword] = useState('');
+  const [nome, setNome] = useState('');
+  const [escola, setEscola] = useState('');
+
+  async function handleSignIn(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-
-    // Simular delay de requisição
-    setTimeout(() => {
-      if (mode === 'login') {
-        login(email, password);
-      } else {
-        signup(name, email, password);
-      }
+    setError('');
+    try {
+      await signIn(loginEmail, loginPassword);
+      setOpen(false);
+      setLoginEmail('');
+      setLoginPassword('');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erro ao fazer login');
+    } finally {
       setLoading(false);
-      setEmail('');
-      setPassword('');
-      setName('');
-    }, 600);
-  };
+    }
+  }
+
+  async function handleSignUp(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    try {
+      await signUp(signupEmail, signupPassword, nome, escola);
+      setOpen(false);
+      setSignupEmail('');
+      setSignupPassword('');
+      setNome('');
+      setEscola('');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erro ao criar conta');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleSignOut() {
+    setLoading(true);
+    try {
+      await signOut();
+      setOpen(false);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erro ao sair');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (user) {
+    return (
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button variant="default" className="gap-2">
+            👤 Perfil
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[400px]">
+          <DialogHeader>
+            <DialogTitle>Meu Perfil</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="text-sm">
+              <p className="text-gray-600">Email</p>
+              <p className="font-semibold">{user.email}</p>
+            </div>
+            <Button variant="destructive" className="w-full" onClick={handleSignOut} disabled={loading}>
+              {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+              Sair
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    );
+  }
 
   return (
-    <Dialog open={isOpen} onOpenChange={closeAuth}>
-      <DialogContent className="sm:max-w-[425px]">
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="default" className="gap-2">
+          🔐 Login / Cadastro
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">
-            {mode === 'login' ? 'Entrar' : 'Criar Conta'}
-          </DialogTitle>
-          <DialogDescription>
-            {mode === 'login'
-              ? 'Acesse sua conta do ARBOGAME'
-              : 'Junte-se à comunidade ARBOGAME'}
-          </DialogDescription>
+          <DialogTitle>ARBOGAME - Acesso</DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-4 py-4">
-          {mode === 'signup' && (
-            <div>
-              <label htmlFor="name" className="text-sm font-medium text-foreground">
-                Nome completo
-              </label>
-              <Input
-                id="name"
-                placeholder="Seu nome"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                className="mt-1"
-              />
-            </div>
-          )}
+        <Tabs defaultValue="login" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="login">Login</TabsTrigger>
+            <TabsTrigger value="signup">Cadastro</TabsTrigger>
+          </TabsList>
 
-          <div>
-            <label htmlFor="email" className="text-sm font-medium text-foreground">
-              E-mail
-            </label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="seu@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="mt-1"
-            />
-          </div>
+          {/* LOGIN */}
+          <TabsContent value="login" className="space-y-4 mt-4">
+            <form onSubmit={handleSignIn} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="seu@email.com"
+                  value={loginEmail}
+                  onChange={(e) => setLoginEmail(e.target.value)}
+                  required
+                  disabled={loading}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="password">Senha</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="••••••••"
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                  required
+                  disabled={loading}
+                />
+              </div>
+              {error && (
+                <div className="flex gap-2 bg-red-50 p-3 rounded text-red-700 text-sm">
+                  <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                  <p>{error}</p>
+                </div>
+              )}
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                Entrar
+              </Button>
+            </form>
+          </TabsContent>
 
-          <div>
-            <label htmlFor="password" className="text-sm font-medium text-foreground">
-              Senha
-            </label>
-            <Input
-              id="password"
-              type="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="mt-1"
-            />
-          </div>
-
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? (
-              <>
-                <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-background border-t-foreground" />
-                Entrando...
-              </>
-            ) : mode === 'login' ? (
-              'Entrar'
-            ) : (
-              'Criar Conta'
-            )}
-          </Button>
-        </form>
-
-        <div className="border-t pt-4">
-          <button
-            onClick={() => {
-              setMode(mode === 'login' ? 'signup' : 'login');
-              setEmail('');
-              setPassword('');
-              setName('');
-            }}
-            className="w-full text-sm text-primary hover:underline"
-          >
-            {mode === 'login'
-              ? 'Não tem conta? Criar uma'
-              : 'Já tem conta? Entrar'}
-          </button>
-        </div>
-
-        <p className="text-xs text-muted-foreground text-center pt-2">
-          💡 Esta é uma amostra. Login não persiste dados.
-        </p>
+          {/* SIGNUP */}
+          <TabsContent value="signup" className="space-y-4 mt-4">
+            <form onSubmit={handleSignUp} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="nome">Nome</Label>
+                <Input
+                  id="nome"
+                  type="text"
+                  placeholder="João Silva"
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                  required
+                  disabled={loading}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="escola">Escola/Instituição</Label>
+                <Input
+                  id="escola"
+                  type="text"
+                  placeholder="Escola Municipal X"
+                  value={escola}
+                  onChange={(e) => setEscola(e.target.value)}
+                  required
+                  disabled={loading}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="email-signup">Email</Label>
+                <Input
+                  id="email-signup"
+                  type="email"
+                  placeholder="seu@email.com"
+                  value={signupEmail}
+                  onChange={(e) => setSignupEmail(e.target.value)}
+                  required
+                  disabled={loading}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="password-signup">Senha</Label>
+                <Input
+                  id="password-signup"
+                  type="password"
+                  placeholder="••••••••"
+                  value={signupPassword}
+                  onChange={(e) => setSignupPassword(e.target.value)}
+                  required
+                  disabled={loading}
+                />
+              </div>
+              {error && (
+                <div className="flex gap-2 bg-red-50 p-3 rounded text-red-700 text-sm">
+                  <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                  <p>{error}</p>
+                </div>
+              )}
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                Criar Conta
+              </Button>
+            </form>
+          </TabsContent>
+        </Tabs>
       </DialogContent>
     </Dialog>
   );
