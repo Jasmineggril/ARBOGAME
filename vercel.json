@@ -1,23 +1,7 @@
 {
-  "projectId": "prj_qGvH9QkZ9RZH3H3H3H3H",
-  "orgId": "team_qGvH9QkZ9RZH",
-  "root": ".",
   "buildCommand": "pnpm run build && pnpm --filter '@workspace/arbogame' run build",
   "installCommand": "pnpm install --recursive",
   "outputDirectory": "artifacts/arbogame/dist",
-  "devCommand": "pnpm dev",
-  "framework": "vite",
-  "nodeVersion": "18.x",
-  "env": [
-    "VITE_SUPABASE_URL",
-    "VITE_SUPABASE_ANON_KEY"
-  ],
-  "build": {
-    "env": [
-      "VITE_SUPABASE_URL",
-      "VITE_SUPABASE_ANON_KEY"
-    ]
-  },
   "headers": [
     {
       "source": "/(.*)",
