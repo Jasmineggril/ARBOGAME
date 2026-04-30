@@ -4,6 +4,9 @@ modules = ["nodejs-24", "postgresql-16"]
 router = "application"
 deploymentTarget = "autoscale"
 
+[deployment.build]
+args = ["pnpm", "run", "build"]
+
 [deployment.postBuild]
 args = ["pnpm", "store", "prune"]
 env = { "CI" = "true" }
@@ -20,21 +23,29 @@ path = "scripts/post-merge.sh"
 timeoutMs = 20000
 
 [[ports]]
-localPort = 8080
-externalPort = 8080
-
-[[ports]]
-localPort = 8081
+localPort = 5173
 externalPort = 80
 
 [[ports]]
-localPort = 18537
+localPort = 5174
 externalPort = 3000
+
+[[ports]]
+localPort = 5432
+externalPort = 5432
 
 [userenv]
 
 [userenv.shared]
 ADMIN_PASSWORD = "arbogame2026"
+
+[userenv.shared.VITE_SUPABASE_URL]
+value = ""
+description = "Supabase Project URL (https://seu-projeto.supabase.co)"
+
+[userenv.shared.VITE_SUPABASE_ANON_KEY]
+value = ""
+description = "Supabase Anon Key (pega em Supabase → API Settings)"
 
 [nix]
 channel = "stable-25_05"
