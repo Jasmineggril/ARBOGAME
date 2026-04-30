@@ -1,7 +1,6 @@
 {
-  "buildCommand": "pnpm run build && pnpm --filter '@workspace/arbogame' run build",
-  "installCommand": "pnpm install --recursive",
-  "outputDirectory": "artifacts/arbogame/dist",
+  "buildCommand": "pnpm install --recursive && pnpm --filter '@workspace/arbogame' run build",
+  "outputDirectory": "artifacts/arbogame/dist/public",
   "headers": [
     {
       "source": "/(.*)",
